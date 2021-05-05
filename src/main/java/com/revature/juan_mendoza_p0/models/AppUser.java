@@ -6,6 +6,7 @@ package com.revature.juan_mendoza_p0.models;
 public class AppUser {
     //Fields of my bank users
     private int id;
+    private double balance;
     private String username;
     private String password;
     private String fristName;

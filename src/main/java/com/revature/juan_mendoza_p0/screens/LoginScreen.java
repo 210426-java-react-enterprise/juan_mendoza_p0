@@ -44,6 +44,8 @@ public class LoginScreen extends Screen {
             System.out.println(">");
             password = consoleReader.readLine();
 
+
+            //make sure nothing empty was given
             if(username != null && !username.isEmpty() && password != null & password.isEmpty()){
                 AppUser authenticatedUser = userDoa.findUserByUsernameAndPassword(username,password);
                 if(authenticatedUser != null){
