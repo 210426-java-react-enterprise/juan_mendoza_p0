@@ -1,19 +1,22 @@
 package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.doas.UserDOA;
-import com.revature.juan_mendoza_p0.models.AppUsers;
+import com.revature.juan_mendoza_p0.models.AppUser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class RegisterScreen {
+public class RegisterScreen extends Screen {
     private UserDOA userDoa = new UserDOA();
     private BufferedReader consoleReader;
 
     public RegisterScreen(BufferedReader consoleReader){
+        super("RegisterScreen", "/register");
         this.consoleReader = consoleReader;
     }
-    public void Render(){
+
+
+    public void render(){
         String username;
         String password;
         String firstName;
@@ -45,8 +48,8 @@ public class RegisterScreen {
             age = Integer.parseInt(consoleReader.readLine());
 
 
-            AppUsers newUser = new AppUsers(username,password,firstName,lastName,email,age);
-            userDoa.saveUserToFile(newUser);
+            AppUser newUser = new AppUser(username,password,firstName,lastName,email,age);
+            userDoa.save(newUser);
 
         } catch (IOException e) {
             e.printStackTrace();
