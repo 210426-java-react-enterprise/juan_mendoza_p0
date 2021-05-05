@@ -20,7 +20,7 @@ public class Driver {
         if (selectionUser == 1){
             try(BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in))){
                 RegisterScreen registerScreen = new RegisterScreen((consoleReader));
-                registerScreen.Render();
+                registerScreen.render();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -28,7 +28,7 @@ public class Driver {
         }else if (selectionUser == 2){
             try(BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in))){
                 LoginScreen loginScreen = new LoginScreen(consoleReader);
-                loginScreen.Render();
+                loginScreen.render();
             } catch (IOException e) {
                 e.printStackTrace();
             }

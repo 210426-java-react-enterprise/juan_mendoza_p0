@@ -3,7 +3,7 @@ package com.revature.juan_mendoza_p0.models;
 /**
  * Class to ask for user to input there information to be written to a file for later access.
  */
-public class AppUsers {
+public class AppUser {
     //Fields of my bank users
     private int id;
     private String username;
@@ -14,8 +14,8 @@ public class AppUsers {
     private int age;
 
     //constructor
-    public AppUsers(String username, String password, String fristName,
-                    String lasName, String email, int age) {
+    public AppUser(String username, String password, String fristName,
+                   String lasName, String email, int age) {
         this.username = username;
         this.password = password;
         this.fristName = fristName;
