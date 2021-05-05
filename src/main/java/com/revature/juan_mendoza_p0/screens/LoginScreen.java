@@ -7,9 +7,16 @@ import java.io.IOException;
 
 public class LoginScreen {
 
+    //only reader pointer to be used in this class, to be able
+    //to take user credentials.
     private BufferedReader consoleReader;
 
+    /**
+     * Constructer for loginscreen.
+     * @param consoleReader
+     */
     public LoginScreen(BufferedReader consoleReader){
+
         this.consoleReader = consoleReader;
     }
 

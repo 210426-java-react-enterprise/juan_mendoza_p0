@@ -5,6 +5,7 @@ package com.revature.juan_mendoza_p0.models;
  */
 public class AppUsers {
     //Fields of my bank users
+    private int id;
     private String username;
     private String password;
     private String fristName;
