@@ -1,2 +1,0 @@
-jmendo;password;Juan;Mendoza;jmendoza@revature.net;25
-mendoleo;password;Leo;Mendo;leo.mendo@revature.net;23
