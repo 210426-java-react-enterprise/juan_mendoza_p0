@@ -1,7 +1,8 @@
 package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
-
+//static method have access to static members, we can use it as if it in this class but its in Driver
+import static com.revature.juan_mendoza_p0.Driver.getAppState;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -39,6 +40,7 @@ public class WelcomeScreen extends Screen {
                     break;
                 case "3":
                     System.out.println("Now leaving application.Goodbye.");
+                    getAppState().setAppRunning(false);
                     break;
                 default:
                     System.out.println("Invalid Selection!");

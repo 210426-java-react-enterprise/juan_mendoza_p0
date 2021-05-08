@@ -2,6 +2,7 @@ package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.doas.UserDOA;
 import com.revature.juan_mendoza_p0.models.AppUser;
+import com.revature.juan_mendoza_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,10 +10,12 @@ import java.io.IOException;
 public class RegisterScreen extends Screen {
     private UserDOA userDoa = new UserDOA();
     private BufferedReader consoleReader;
+    private ScreenRouter router;
 
-    public RegisterScreen(BufferedReader consoleReader){
+    public RegisterScreen(BufferedReader consoleReader, ScreenRouter router){
         super("RegisterScreen", "/register");
         this.consoleReader = consoleReader;
+        this.router = router;
     }
 
 
