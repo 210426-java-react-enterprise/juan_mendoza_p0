@@ -26,15 +26,12 @@ public class AppState {
 
         router = new ScreenRouter();
 
+        //chain addScreen method, cause we return instance of ScreenRouter in method
         router.addScreen(new WelcomeScreen(consoleReader,router))
                 .addScreen(new LoginScreen(consoleReader,router))
                 .addScreen(new RegisterScreen(consoleReader, router));
 
         System.out.println("System is initialized!");
-    }
-
-    public BufferedReader getConsoleReader() {
-        return consoleReader;
     }
 
     public ScreenRouter getRouter() {
