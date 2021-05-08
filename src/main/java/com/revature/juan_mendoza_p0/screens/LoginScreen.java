@@ -2,6 +2,7 @@ package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.doas.UserDOA;
 import com.revature.juan_mendoza_p0.models.AppUser;
+import com.revature.juan_mendoza_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,15 +16,17 @@ public class LoginScreen extends Screen {
     //to take user credentials.
     private BufferedReader consoleReader;
     private UserDOA userDoa = new UserDOA();
+    private ScreenRouter router;
 
 
     /**
      * Constructer for loginscreen.
      * @param consoleReader
      */
-    public LoginScreen(BufferedReader consoleReader){
+    public LoginScreen(BufferedReader consoleReader, ScreenRouter router){
         super("LoginScreen", "/login");
         this.consoleReader = consoleReader;
+        this.router = router;
     }
 
     /**

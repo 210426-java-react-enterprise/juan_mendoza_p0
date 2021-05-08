@@ -13,28 +13,5 @@ public class Driver {
         System.out.println("Welcome to Sanctuary Banking!");
         System.out.println("1) Register \n 2) Login");
 
-        int selectionUser = 0;
-        Scanner selScan = new Scanner(System.in);
-        selectionUser = selScan.nextInt();
-
-        if (selectionUser == 1){
-            try(BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in))){
-                RegisterScreen registerScreen = new RegisterScreen((consoleReader));
-                registerScreen.render();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }else if (selectionUser == 2){
-            try(BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in))){
-                LoginScreen loginScreen = new LoginScreen(consoleReader);
-                loginScreen.render();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-            System.out.println("Please choose again.");
-            selectionUser = selScan.nextInt();
-        }
     }
 }
