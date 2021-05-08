@@ -35,9 +35,10 @@ public class LinkedList<T> implements List<T>,Queue<T> {
             if(i == index){
                 return cursor.data;
             }
+            //if cursor isn't on right index, just move onto next node
             cursor = cursor.nextNode;
         }
-
+        //java wants something
         return null;
     }
 
