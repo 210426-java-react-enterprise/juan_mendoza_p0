@@ -11,6 +11,7 @@ public class WelcomeScreen extends Screen {
     private BufferedReader consoleReader;
     private ScreenRouter router;
 
+    //dependency injection (dependent on: BufferedReader & ScreenRouter)
     public WelcomeScreen(BufferedReader consoleReader, ScreenRouter router){
         super("WelcomeScreen","/welcome");
         this.consoleReader = consoleReader;
@@ -30,10 +31,11 @@ public class WelcomeScreen extends Screen {
             switch (userOption) {
                 case "1":
                     System.out.println("Navigating to login screen");
-                    //router.navigate("/login");
+                    router.navigate("/login");
                     break;
                 case "2":
-                    System.out.println("Navigating to register screen")
+                    System.out.println("Navigating to register screen");
+                    router.navigate("/register");
                     break;
                 case "3":
                     System.out.println("Now leaving application.Goodbye.");
