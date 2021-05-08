@@ -1,6 +1,6 @@
 package com.revature.juan_mendoza_p0.util;
 
 public interface List<T> extends Collection<T> {
-    T get();
+    T get(int index);
 
 }

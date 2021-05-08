@@ -21,39 +21,38 @@ public class LinkedList<T> implements List<T>,Queue<T> {
     }
 
     /**
-     * This method returns and removes the data held in head or null.
-     * @return
+     * This method returns the data at specified index.
+     * @return      Data
      */
     @Override
-    public T get(){//might become pop method later for normalizing naming convention.
-        //check if it is null first of all, if so done!
-        if(head == null){
-            return null;
+    public T get(int index){
+        if (index < 0 || index > size){
+            throw new IllegalArgumentException("You have provided index index out of bounds");
+        }
+        Node<T> cursor = head;
+
+        for(int i = 0; i<size; i++){
+            if(i == index){
+                return cursor.data;
+            }
+            cursor = cursor.nextNode;
         }
 
-
-        T wantedData = head.data;
-        head = head.nextNode;
-        //now since we removed head, its null now so we must first check
-        //if it is null to be able to be able to reassign previous node
-        //else null pointer exception is throw trying to access (null).prevNode.
-        if(head!=null){
-            head.prevNode = null;
-        }else{
-            tail = null;
-        }
-
-        size--;
-        return wantedData;
-
+        return null;
     }
 
     @Override
     public void add(T data) {
+        //lets first check if data is null
         if (data == null){
             throw new IllegalArgumentException("Null values can not be accepted!");
         }
+
+        //make our data Node type
         Node<T> newNode = new Node<T>(data);
+
+        //if this is the first thing or empty list, then we need to make sure head is not null
+        //if not null, proceed with logic and rerouting connections.
         if(head == null){
             head = newNode;
             tail = newNode;
@@ -67,6 +66,37 @@ public class LinkedList<T> implements List<T>,Queue<T> {
 
     @Override
     public T remove(T data) {
+        return null;
+    }
+
+    /**Method for removing the front most data in the list.
+     *
+     * @return   the head of the LinkedList
+     */
+    @Override
+    public T poll() {
+        //check head is null, if so done!
+        if(head == null){
+            return null;
+        }
+
+        //head is removed
+        T wantedData = head.data;
+        head = head.nextNode;
+        //Head of LinkedList is null, if we try to access "head.prevNode" get
+        //null pointer exception.
+        if(head!=null){
+            head.prevNode = null;
+        }else{
+            tail = null;
+        }
+
+        size--;
+        return wantedData;
+    }
+
+    @Override
+    public T peek() {
         return null;
     }
 
