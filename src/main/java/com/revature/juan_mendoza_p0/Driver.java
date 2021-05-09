@@ -11,7 +11,7 @@ public class Driver {
     public static void main(String[] args){
 
         while (app.isAppRunning()){
-            app.getRouter().navigate("/welcome");// will navigate us to welcom screen, more options.
+            app.getRouter().navigate("/welcome");// will navigate us to welcome screen, more options.
         }
     }
 
