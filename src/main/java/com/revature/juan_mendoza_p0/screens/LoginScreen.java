@@ -41,16 +41,17 @@ public class LoginScreen extends Screen {
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
             System.out.println("Enter Username: ");
-            System.out.println(">");
+            System.out.print("> ");
             username = consoleReader.readLine();
             System.out.println("Enter Password: ");
-            System.out.println(">");
+            System.out.print("> ");
             password = consoleReader.readLine();
 
 
             //make sure nothing empty was given
-            if(username != null && !username.isEmpty() && password != null & password.isEmpty()){
+            if(username != null && !username.isEmpty() && password != null && !password.isEmpty()){
                 AppUser authenticatedUser = userDoa.findUserByUsernameAndPassword(username,password);
+
                 if(authenticatedUser != null){
                     System.out.println("Login successful!");
                 }else{
@@ -59,9 +60,7 @@ public class LoginScreen extends Screen {
             }else{
                 System.out.println("Did not provide credentials.");
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
     }

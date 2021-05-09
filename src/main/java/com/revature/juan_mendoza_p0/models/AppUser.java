@@ -5,24 +5,28 @@ package com.revature.juan_mendoza_p0.models;
  */
 public class AppUser {
     //Fields of my bank users
-    private int id;
-    private double balance;
+    //private int id;
+    //private double balance;
     private String username;
     private String password;
-    private String fristName;
+    private String firstName;
     private String lasName;
     private String email;
     private int age;
 
     //constructor
-    public AppUser(String username, String password, String fristName,
+    public AppUser(String username, String password, String firstName,
                    String lasName, String email, int age) {
         this.username = username;
         this.password = password;
-        this.fristName = fristName;
+        this.firstName= firstName;
         this.lasName = lasName;
         this.email = email;
         this.age = age;
+    }
+
+    public AppUser(){
+        super();
     }
     //getters and setters
     public String getUsername() {
@@ -41,12 +45,12 @@ public class AppUser {
         this.password = password;
     }
 
-    public String getFristName() {
-        return fristName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFristName(String fristName) {
-        this.fristName = fristName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLasName() {
@@ -73,7 +77,24 @@ public class AppUser {
         this.age = age;
     }
 
+  //  public int getId() { return id; }
+//
+  //  public void setId(int id) { this.id = id; }
+//
     public String toFileString(){
-        return String.format("%s;%s;%s;%s;%s;%d",username,password,fristName,lasName,email,age);
+        return String.format("%s;%s;%s;%s;%s;%d",username,password,firstName,lasName,email,age);
+    }
+
+    @Override
+    public String toString(){
+        final StringBuilder sb = new StringBuilder("AppUser{ ");
+        sb.append(", username='").append(username).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lasName).append('\'');
+        sb.append(", age=").append(age);
+        sb.append('}');
+        return sb.toString();
     }
 }
