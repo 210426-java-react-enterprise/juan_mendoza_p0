@@ -1,6 +1,6 @@
 package com.revature.juan_mendoza_p0.screens;
 
-import com.revature.juan_mendoza_p0.doas.UserDOA;
+import com.revature.juan_mendoza_p0.doas.UserDAO;
 import com.revature.juan_mendoza_p0.models.AppUser;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
 
@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class RegisterScreen extends Screen {
-    private UserDOA userDoa = new UserDOA();
+    private UserDAO userDoa = new UserDAO();
     private BufferedReader consoleReader;
     private ScreenRouter router;
 

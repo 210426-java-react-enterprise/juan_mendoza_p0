@@ -8,13 +8,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * When we register a user, we save the information to file(resources/user.txt).
- */
-public class UserDOA {
+//user Data Object Access, to persist or get data from the database.
+public class UserDAO {
 
     // TODO
-    public void save(AppUser newUser){
+    public AppUser save(AppUser newUser){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+
+            String sql = "insert into users.BankUsers (username,password,first_name,last_name,email,age) values (?,?,?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"user_id"});
+            pstmt.setString(1,newUser.getUsername());
+            pstmt.setString(2,newUser.getPassword());
+            pstmt.setString(3,newUser.getFirstName());
+            pstmt.setString(4,newUser.getLasName());
+            pstmt.setString(5,newUser.getEmail());
+            pstmt.setInt(6,newUser.getAge());
+
+            int rowInserted = pstmt.executeUpdate();
+
+            if(rowInserted != 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while(rs.next()){
+                    newUser.setId(rs.getInt("user_id"));
+                }
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return newUser;
 
     }
 
@@ -24,7 +47,7 @@ public class UserDOA {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
-            String sql = "select * from users.users where username=? and password=?";
+            String sql = "select * from users.BankUsers where username=? and password=?";
             PreparedStatement prepStmt = conn.prepareStatement(sql);
             prepStmt.setString(1, username);
             prepStmt.setString(2, password);

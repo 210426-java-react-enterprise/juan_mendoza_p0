@@ -15,7 +15,12 @@ public class Driver {
         }
     }
 
+    /**
+     * Method to be able to return app state, be accessible, and loaded before the main method.
+     * @return      instance of the AppState
+     */
     public static AppState getAppState(){
+
         return app;
     }
 }
