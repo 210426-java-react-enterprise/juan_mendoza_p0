@@ -56,7 +56,7 @@ public class UserDAO {
 
             while(rs.next()){
                 user = new AppUser();
-               // user.setId(rs.getInt("user_id"));
+                user.setId(rs.getInt("user_id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setFirstName(rs.getString("first_name"));

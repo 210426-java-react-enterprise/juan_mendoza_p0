@@ -16,7 +16,7 @@ public class Account {
     }
 
     public Account(int accountId, double balance, String accountType){
-        this.(accountId,balance,accountType);
+        this(balance,accountType);
         this.accountId = accountId;
     }
 
