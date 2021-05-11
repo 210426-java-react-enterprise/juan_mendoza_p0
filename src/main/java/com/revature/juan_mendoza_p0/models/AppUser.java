@@ -5,7 +5,7 @@ package com.revature.juan_mendoza_p0.models;
  */
 public class AppUser {
     //Fields of my bank users
-    //private int id;
+    private int id;
     //private double balance;
     private String username;
     private String password;
@@ -23,6 +23,19 @@ public class AppUser {
         this.lasName = lasName;
         this.email = email;
         this.age = age;
+    }
+
+    public AppUser(int id, String username, String password, String firstName,String lasName, String email, int age) {
+        this(username, password, firstName, lasName, email, age);
+        this.id = id;
+    }
+
+        public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public AppUser(){
