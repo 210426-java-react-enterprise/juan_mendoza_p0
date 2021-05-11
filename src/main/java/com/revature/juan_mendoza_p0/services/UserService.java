@@ -4,6 +4,13 @@ import com.revature.juan_mendoza_p0.doas.UserDAO;
 import com.revature.juan_mendoza_p0.exceptions.InvalidRequestException;
 import com.revature.juan_mendoza_p0.exceptions.ResourcePersistenceException;
 import com.revature.juan_mendoza_p0.models.AppUser;
+import com.revature.juan_mendoza_p0.util.ConnectionFactory;
+
+import javax.naming.AuthenticationException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserService {
 
@@ -25,6 +32,12 @@ public class UserService {
     public AppUser register(AppUser newUser) throws InvalidRequestException, ResourcePersistenceException {
         if(!isUserValid(newUser)){
             throw new InvalidRequestException("Invalid new user data provided!");
+        }
+        if(!isUserNameAvailable(newUser.getUsername())){
+            throw new ResourcePersistenceException("The provided username is not unique!");
+        }
+        if(!isEmailAvailalbe(newUser.getEmail())){
+            throw new ResourcePersistenceException("The provided email is taken!");
         }
 
         return userDao.save(newUser);
@@ -57,6 +70,72 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Method for determining whether username is unique.
+     * @param username  String of the username to be checked
+     * @return          boolean if it is unique(true) or not unique
+     */
+    public boolean isUserNameAvailable(String username){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select * from users.BankUsers where username = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,username);
+
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return false; //because query found a used username
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return true; //if unique username
+    }
+
+
+    /**
+     * Method for determing whether email is unique.
+     * @param email         String email to be checked
+     * @return          boolean
+     */
+    public boolean isEmailAvailalbe(String email){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select * from users.BankUsers where email = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,email);
+
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return false;//query found an email, so not unique
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Method to determine username or password is not null, blank, or incorrect.
+     * @param username      String
+     * @param password      String
+     * @return              The user if passed all test
+     * @throws AuthenticationException  User provided incorrect login information
+     */
+    public AppUser authenticate(String username, String password) throws AuthenticationException {
+        if(username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()){
+            throw new InvalidRequestException("The provided information is invalid.");
+        }
+        AppUser user = userDao.findUserByUsernameAndPassword(username,password);
+        if(user == null){
+            throw new AuthenticationException("Could not find user with provided information.");
+        }
+        return user;
     }
 
 

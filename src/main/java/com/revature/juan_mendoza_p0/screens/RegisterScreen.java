@@ -2,12 +2,15 @@ package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.doas.UserDAO;
 import com.revature.juan_mendoza_p0.models.AppUser;
+import com.revature.juan_mendoza_p0.services.UserService;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class RegisterScreen extends Screen {
+
+    private UserService uService;
     private UserDAO userDoa = new UserDAO();
     private BufferedReader consoleReader;
     private ScreenRouter router;
@@ -29,7 +32,7 @@ public class RegisterScreen extends Screen {
 
         try{
             System.out.println("Register for a new account!");
-            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            System.out.println("++++++++++++++++++++++++++++++++++");
 
 
             System.out.println("First Name: ");
@@ -52,7 +55,8 @@ public class RegisterScreen extends Screen {
 
 
             AppUser newUser = new AppUser(username,password,firstName,lastName,email,age);
-            userDoa.save(newUser);
+
+            uService.register(newUser);//Exception will be thrown if invalid input,null, or taken fields.
 
         } catch (IOException e) {
             e.printStackTrace();

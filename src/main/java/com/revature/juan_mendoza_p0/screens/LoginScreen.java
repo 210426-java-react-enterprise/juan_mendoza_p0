@@ -1,7 +1,9 @@
 package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.doas.UserDAO;
+import com.revature.juan_mendoza_p0.exceptions.AuthenticationException;
 import com.revature.juan_mendoza_p0.models.AppUser;
+import com.revature.juan_mendoza_p0.services.UserService;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
@@ -13,6 +15,7 @@ public class LoginScreen extends Screen {
     private BufferedReader consoleReader;
     private UserDAO userDoa = new UserDAO();
     private ScreenRouter router;
+    private UserService uService;
 
 
     /**
@@ -28,13 +31,13 @@ public class LoginScreen extends Screen {
     /**
      * Method to get user credential, and verify user credential using UserDOA class.
      */
-    public void render(){
-        try{
+    public void render() {
+        try {
             String username;
             String password;
 
             System.out.println("Login into your Sanctuary Bank!");
-            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            System.out.println("+++++++++++++++++++++++++++++++++");
 
             System.out.println("Enter Username: ");
             System.out.print("> ");
@@ -43,20 +46,14 @@ public class LoginScreen extends Screen {
             System.out.print("> ");
             password = consoleReader.readLine();
 
-
-            //make sure nothing empty was given
-            if(username != null && !username.isEmpty() && password != null && !password.isEmpty()){
-                AppUser authenticatedUser = userDoa.findUserByUsernameAndPassword(username,password);
-
-                if(authenticatedUser != null){
-                    System.out.println("Login successful!");
-                }else{
-                    System.out.println("Login failed!");
-                }
-            }else{
-                System.out.println("Did not provide credentials.");
+            AppUser validateUserInformation = uService.authenticate(username, password);
+            if (validateUserInformation != null) {
+                router.navigate("/account");
             }
-        } catch(Exception e){
+
+        } catch (AuthenticationException e) {
+            e.getMessage();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
