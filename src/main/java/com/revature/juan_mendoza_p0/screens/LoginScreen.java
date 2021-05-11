@@ -1,21 +1,17 @@
 package com.revature.juan_mendoza_p0.screens;
 
-import com.revature.juan_mendoza_p0.doas.UserDOA;
+import com.revature.juan_mendoza_p0.doas.UserDAO;
 import com.revature.juan_mendoza_p0.models.AppUser;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.SQLOutput;
 
 public class LoginScreen extends Screen {
 
     //only reader pointer to be used in this class, to be able
     //to take user credentials.
     private BufferedReader consoleReader;
-    private UserDOA userDoa = new UserDOA();
+    private UserDAO userDoa = new UserDAO();
     private ScreenRouter router;
 
 

@@ -8,10 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * When we register a user, we save the information to file(resources/user.txt).
- */
-public class UserDOA {
+//user Data Object Access, to persist or get data from the database.
+public class UserDAO {
 
     // TODO
     public void save(AppUser newUser){

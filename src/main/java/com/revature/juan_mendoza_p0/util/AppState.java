@@ -1,7 +1,7 @@
 package com.revature.juan_mendoza_p0.util;
 
 
-import com.revature.juan_mendoza_p0.doas.UserDOA;
+import com.revature.juan_mendoza_p0.doas.UserDAO;
 import com.revature.juan_mendoza_p0.screens.LoginScreen;
 import com.revature.juan_mendoza_p0.screens.RegisterScreen;
 import com.revature.juan_mendoza_p0.screens.WelcomeScreen;
@@ -22,7 +22,7 @@ public class AppState {
         //where we create instance
         this.consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
-        final UserDOA userDOA = new UserDOA();
+        final UserDAO userDOA = new UserDAO();
 
         router = new ScreenRouter();
 
