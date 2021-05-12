@@ -2,9 +2,7 @@ package com.revature.juan_mendoza_p0.util;
 
 
 import com.revature.juan_mendoza_p0.doas.UserDAO;
-import com.revature.juan_mendoza_p0.screens.LoginScreen;
-import com.revature.juan_mendoza_p0.screens.RegisterScreen;
-import com.revature.juan_mendoza_p0.screens.WelcomeScreen;
+import com.revature.juan_mendoza_p0.screens.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,7 +27,11 @@ public class AppState {
         //chain addScreen method, cause we return instance of ScreenRouter in method
         router.addScreen(new WelcomeScreen(consoleReader,router))
                 .addScreen(new LoginScreen(consoleReader,router))
-                .addScreen(new RegisterScreen(consoleReader, router));
+                .addScreen(new RegisterScreen(consoleReader, router))
+                .addScreen(new WithdrawDepositScreen(consoleReader,router))
+                .addScreen(new AccountScreen(consoleReader,router))
+                .addScreen(new SavingScreen(consoleReader,router))
+                .addScreen(new CheckingsScreen(consoleReader,router));
 
         System.out.println("System is initialized!");
     }

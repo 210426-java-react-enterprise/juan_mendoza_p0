@@ -90,10 +90,7 @@ public class AppUser {
         this.age = age;
     }
 
-  //  public int getId() { return id; }
-//
-  //  public void setId(int id) { this.id = id; }
-//
+
     public String toFileString(){
         return String.format("%s;%s;%s;%s;%s;%d",username,password,firstName,lasName,email,age);
     }

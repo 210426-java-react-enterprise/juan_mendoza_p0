@@ -18,8 +18,10 @@ public class UserService {
     private UserDAO userDao;
 
     public UserService(UserDAO userDao){
+
         this.userDao = userDao;
     }
+
 
     /**
      * Method to check user input whether valid, taken names on fields that are unique such as username or email
@@ -29,7 +31,9 @@ public class UserService {
      * @throws InvalidRequestException
      * @throws ResourcePersistenceException
      */
-    public AppUser register(AppUser newUser) throws InvalidRequestException, ResourcePersistenceException {
+
+
+    public void register(AppUser newUser) throws InvalidRequestException, ResourcePersistenceException {
         if(!isUserValid(newUser)){
             throw new InvalidRequestException("Invalid new user data provided!");
         }
@@ -40,7 +44,7 @@ public class UserService {
             throw new ResourcePersistenceException("The provided email is taken!");
         }
 
-        return userDao.save(newUser);
+        userDao.save(newUser);
     }
 
     /**
@@ -78,21 +82,7 @@ public class UserService {
      * @return          boolean if it is unique(true) or not unique
      */
     public boolean isUserNameAvailable(String username){
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-            String sql = "select * from users.BankUsers where username = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,username);
-
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                return false; //because query found a used username
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return true; //if unique username
+       return userDao.isUserNameAvailable(username);
     }
 
 
@@ -102,21 +92,7 @@ public class UserService {
      * @return          boolean
      */
     public boolean isEmailAvailalbe(String email){
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-            String sql = "select * from users.BankUsers where email = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,email);
-
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
-                return false;//query found an email, so not unique
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return true;
+        return userDao.isEmailAvailalbe(email);
     }
 
 

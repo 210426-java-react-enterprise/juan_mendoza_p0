@@ -13,6 +13,7 @@ public class UserDAO {
 
     // TODO
     public AppUser save(AppUser newUser){
+        System.out.println("i was called");
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
             String sql = "insert into users.BankUsers (username,password,first_name,last_name,email,age) values (?,?,?,?,?,?)";
@@ -70,4 +71,47 @@ public class UserDAO {
         }
         return user;
     }
+
+
+    /**
+     * Method for determining whether username is unique.
+     * @param username  String of the username to be checked
+     * @return          boolean if it is unique(true) or not unique
+     */
+    public boolean isUserNameAvailable(String username){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select * from users.BankUsers where username = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,username);
+
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return false; //because query found a used username
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return true; //if unique username
+    }
+
+    public boolean isEmailAvailalbe(String email){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select * from users.BankUsers where email = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,email);
+
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return false;//query found an email, so not unique
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return true;
+    }
+
 }
