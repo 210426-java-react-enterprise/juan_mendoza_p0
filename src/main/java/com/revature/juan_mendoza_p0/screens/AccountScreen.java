@@ -33,12 +33,14 @@ public class AccountScreen extends Screen{
             String userSelection = consoleReader.readLine();
             switch (userSelection){
                 case "1":
-                    //saving screen
+                    router.navigate("/savings");
                     break;
                 case "2":
-                    //checking screen
+                    router.navigate("/checkings");
+                    break;
                 case "3":
-                    //transaction screen
+                    router.navigate("/wdScreen");
+                    break;
                 default:
                     System.err.println("Invalid Selection!");
             }
