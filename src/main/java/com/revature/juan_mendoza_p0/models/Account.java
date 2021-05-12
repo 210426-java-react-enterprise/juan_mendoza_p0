@@ -44,6 +44,10 @@ public class Account {
         this.accountType = accountType;
     }
 
+    public void withdrawMoney(double lessMoney){ this.balance += lessMoney; }
+
+    public void depositMoney(double moreMoney){ balance += moreMoney; }
+
     @Override
     public String toString(){
         final StringBuilder sb = new StringBuilder("Account: ");
