@@ -57,12 +57,13 @@ public class TransactionDAO {
         }
     }
 
-    public void updateBalance(double amount,String username){
+    public void depositBalance(double amount,String username){
+        double newBalance = amount +getCheckingBalance(username);
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "update users.checking set balance =(?) where username=(?)";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setDouble(1,amount);
+            pstmt.setDouble(1,newBalance);
             pstmt.setString(2,username);
             pstmt.executeUpdate();
 
@@ -72,6 +73,28 @@ public class TransactionDAO {
 
         System.out.println("Funds have been deposited!");
     }
+
+    public double getCheckingBalance(String username){
+        double sqlBalance=0.0;
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select balance from users.checking where username =(?)";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,username);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                sqlBalance = rs.getDouble("balance");
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return sqlBalance;
+    }
+
+
 
 
 }

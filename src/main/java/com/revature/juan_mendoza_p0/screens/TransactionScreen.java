@@ -36,11 +36,11 @@ public class TransactionScreen extends Screen{
 
             switch(selectionUser){
                 case "1":
-                    System.out.println("$ ");
+                    System.out.print("$ ");
                     try {
                         String amountDeposit = consoleReader.readLine();//ask for deposit amount
                         double dDeposit = Double.parseDouble(amountDeposit);
-                        transactionDao.updateBalance(dDeposit,userCache.getCurrentUserName());
+                        transactionDao.depositBalance(dDeposit,userCache.getCurrentUserName());
                         //verify deposit amount
                             //we need accountService
                         //try block and sql update the new balance
@@ -48,8 +48,21 @@ public class TransactionScreen extends Screen{
                     }catch (Exception e){ // CHANGE EXCEPTION
                         e.printStackTrace();
                     }
+                    screenRouter.navigate("/account");
                     break;
                 case "2":
+                    System.out.print("$ ");
+                    try {
+                        String withdrawAmount = consoleReader.readLine();//ask for withdraw amount
+                        double dDeposit = Double.parseDouble(withdrawAmount);
+                        //verify deposit amount
+                        //we need accountService
+                        //try block and sql update the new balance
+
+                    }catch (Exception e){ // CHANGE EXCEPTION
+                        e.printStackTrace();
+                    }
+
                     break;
                 default:
                     System.err.println("Invalid Selection");
