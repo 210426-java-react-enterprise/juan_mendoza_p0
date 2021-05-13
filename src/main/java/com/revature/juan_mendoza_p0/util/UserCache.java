@@ -1,6 +1,8 @@
 package com.revature.juan_mendoza_p0.util;
 
-
+/**
+ * class for temporarily storing user information.
+ */
 public class UserCache {
 
     private String currentUserName;

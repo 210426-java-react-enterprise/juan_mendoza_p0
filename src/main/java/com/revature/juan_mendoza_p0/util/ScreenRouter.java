@@ -2,6 +2,9 @@ package com.revature.juan_mendoza_p0.util;
 
 import com.revature.juan_mendoza_p0.screens.Screen;
 
+/**
+ * Class for chaining screen class and navigating between different Screen objects.
+ */
 public class ScreenRouter {
 
     private LinkedList<Screen> screens = new LinkedList<>();

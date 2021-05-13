@@ -32,7 +32,7 @@ public class AccountService {
     }
 
 
-    public boolean isoverDraftingOccuring(String username , double amount)throws OverDraftInputException {
+    public boolean  isoverDraftingOccuring(String username , double amount)throws OverDraftInputException {
         double currentBalance = transactionDao.getCheckingBalance(username);
         double result = currentBalance - amount;
         if(result< 0){

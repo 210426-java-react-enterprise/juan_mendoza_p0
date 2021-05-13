@@ -83,5 +83,43 @@ public class LinkedListTest {
 
     }
 
+    @Test
+    public void test_size(){
+        //Arrange
+        sut.add("1");
+        sut.add("2");
+        int expected = 2;
+        //Act
+        int actualResult = sut.size();
+
+        //Assert
+        Assert.assertEquals(actualResult,expected);
+    }
+
+    @Test
+    public void test_ContainsWithValidData(){
+        //Arrange
+        sut.add("1");
+        sut.add("2");
+        sut.add("3");
+        //Act
+        boolean actual = sut.contains("2");
+
+        //Assert
+        Assert.assertTrue(actual);
+    }
+
+    @Test
+    public void test_constainsWithNonValidData(){
+        //Arrange
+        sut.add("1");
+        sut.add("2");
+        sut.add("3");
+        //Act
+        boolean actual = sut.contains("4");
+
+        //Assert
+        Assert.assertFalse(actual);
+    }
 
 }
