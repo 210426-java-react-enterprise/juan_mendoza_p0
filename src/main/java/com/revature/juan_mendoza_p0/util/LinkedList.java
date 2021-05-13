@@ -9,14 +9,35 @@ public class LinkedList<T> implements List<T>,Queue<T> {
     private Node<T> tail;
 
 
+    /**
+     * Method that returns the size of the LinkedList
+     * @return  returns the size as int.
+     */
     @Override
     public int size() {
 
         return size;
     }
 
+
+    /**
+     * Method to determine if the desired input is in the LinkedList
+     * @param data  T - what we are looking for.
+     * @return        boolean - true if data data was found.
+     */
     @Override
     public boolean contains(T data) {
+        if(head==null){
+            return false;
+        }
+
+        Node<T> counter = head;
+        for (int i = 0; i < size ; i++) {
+            if(data == counter.data){
+                return true;
+            }
+            counter = counter.nextNode;
+        }
         return false;
     }
 
@@ -42,6 +63,11 @@ public class LinkedList<T> implements List<T>,Queue<T> {
         return null;
     }
 
+
+    /**
+     * Method to add said data to the LinkedList
+     * @param data      what we desire to add
+     */
     @Override
     public void add(T data) {
         //lets first check if data is null
@@ -69,6 +95,7 @@ public class LinkedList<T> implements List<T>,Queue<T> {
     public T remove(T data) {
         return null;
     }
+
 
     /**Method for removing the front most data in the list.
      *
@@ -100,6 +127,7 @@ public class LinkedList<T> implements List<T>,Queue<T> {
     public T peek() {
         return null;
     }
+
 
     //since we only use Node class in this LinkedList class,then we should just declared the class here.
     //  -- additionally, we declare it private so only LinkedList may access it.
