@@ -21,6 +21,9 @@ public class UserService {
 
         this.userDao = userDao;
     }
+    public UserService(){
+
+    }
 
 
     /**

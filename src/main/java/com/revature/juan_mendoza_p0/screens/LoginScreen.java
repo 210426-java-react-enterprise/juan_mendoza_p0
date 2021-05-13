@@ -5,6 +5,7 @@ import com.revature.juan_mendoza_p0.exceptions.AuthenticationException;
 import com.revature.juan_mendoza_p0.models.AppUser;
 import com.revature.juan_mendoza_p0.services.UserService;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
+import com.revature.juan_mendoza_p0.util.UserCache;
 
 import java.io.BufferedReader;
 
@@ -16,16 +17,20 @@ public class LoginScreen extends Screen {
     private UserDAO userDoa = new UserDAO();
     private ScreenRouter router;
     private UserService uService;
+    private UserCache userCache;
 
 
     /**
      * Constructer for loginscreen.
      * @param consoleReader
      */
-    public LoginScreen(BufferedReader consoleReader, ScreenRouter router){
+    public LoginScreen(BufferedReader consoleReader, ScreenRouter router,
+                       UserService uService,UserCache userCache){
         super("LoginScreen", "/login");
         this.consoleReader = consoleReader;
         this.router = router;
+        this.userCache = userCache;
+        this.uService = uService;
     }
 
     /**
@@ -48,6 +53,8 @@ public class LoginScreen extends Screen {
 
             AppUser validateUserInformation = uService.authenticate(username, password);
             if (validateUserInformation != null) {
+                userCache.setCurrentUserName(username);
+                userCache.setCurrentPassword(password);
                 router.navigate("/account");
             }
 

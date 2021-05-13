@@ -11,9 +11,9 @@ import java.sql.SQLException;
 //user Data Object Access, to persist or get data from the database.
 public class UserDAO {
 
-    // TODO
+
     public AppUser save(AppUser newUser){
-        System.out.println("i was called");
+
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
             String sql = "insert into users.BankUsers (username,password,first_name,last_name,email,age) values (?,?,?,?,?,?)";

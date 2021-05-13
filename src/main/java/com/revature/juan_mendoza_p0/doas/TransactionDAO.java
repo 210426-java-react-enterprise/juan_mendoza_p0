@@ -12,16 +12,17 @@ import java.sql.SQLException;
 public class TransactionDAO {
 
 
-    public void createAccount(AppUser user, String accountType, Account acc){
+    public void createAccount(String username, String accountType, Account acc){
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("Now creating a " + accountType+ " account.");
 
-            String sql = "insert into accounts(account_type, user_id) values(?,?)";
+            String sql = "insert into users.accounts(account_type, username) values(?,?)";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,accountType);
-            pstmt.setInt(2,user.getId());
+            pstmt.setString(2,username);
 
             int rowsInserted = pstmt.executeUpdate();
 
@@ -38,7 +39,23 @@ public class TransactionDAO {
         }
 
         System.out.println(accountType + " has been created.");
-
     }
+
+    public void creatCheckingAccount(String username){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "insert into users.checking(balance,username) values(?,?)";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,0);
+            pstmt.setString(2,username);
+
+            int rowsInserted = pstmt.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
 }

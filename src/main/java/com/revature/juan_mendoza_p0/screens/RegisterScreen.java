@@ -10,24 +10,20 @@ import java.io.IOException;
 
 public class RegisterScreen extends Screen {
 
-    private UserService uService;
     private UserDAO userDoa = new UserDAO();
     private BufferedReader consoleReader;
     private ScreenRouter router;
+    private final UserService userService;
 
-    public RegisterScreen(BufferedReader consoleReader, ScreenRouter router){
+    public RegisterScreen(BufferedReader consoleReader, ScreenRouter router, UserService userService){
         super("RegisterScreen", "/register");
         this.consoleReader = consoleReader;
         this.router = router;
+        this.userService = userService;
     }
 
 
     public void render(){
-        String username;
-        String password;
-        String firstName;
-        String lastName;
-        String email;
         int age;
 
         try{
@@ -36,19 +32,19 @@ public class RegisterScreen extends Screen {
 
 
             System.out.println("First Name: ");
-            firstName = consoleReader.readLine();
+            String firstName = consoleReader.readLine();
 
             System.out.println("Last Name: ");
-            lastName = consoleReader.readLine();
+            String lastName = consoleReader.readLine();
 
             System.out.println("Email: ");
-            email = consoleReader.readLine();
+            String email = consoleReader.readLine();
 
             System.out.println("UserName: ");
-            username = consoleReader.readLine();
+            String username = consoleReader.readLine();
 
             System.out.println("Password: ");
-            password = consoleReader.readLine();
+            String password = consoleReader.readLine();
 
             System.out.println("Age: ");
             age = Integer.parseInt(consoleReader.readLine());
@@ -56,7 +52,7 @@ public class RegisterScreen extends Screen {
 
             AppUser newUser = new AppUser(username,password,firstName,lastName,email,age);
 
-            uService.register(newUser);//Exception will be thrown if invalid input,null, or taken fields.
+            userService.register(newUser);//Exception will be thrown if invalid input,null, or taken fields.
 
         } catch (IOException e) {
             e.printStackTrace();
