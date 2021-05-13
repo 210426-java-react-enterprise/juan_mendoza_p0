@@ -4,6 +4,7 @@ package com.revature.juan_mendoza_p0.screens;
 import com.revature.juan_mendoza_p0.doas.TransactionDAO;
 import com.revature.juan_mendoza_p0.models.Account;
 import com.revature.juan_mendoza_p0.models.AppUser;
+import com.revature.juan_mendoza_p0.services.AccountService;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
 import com.revature.juan_mendoza_p0.util.UserCache;
 
@@ -19,10 +20,12 @@ public class AccountScreen extends Screen{
     private Account account;
     private AppUser user;
     private UserCache userCache;
+    private AccountService accountService;
 
 
     public AccountScreen(BufferedReader consoleReader, ScreenRouter router,
-                         TransactionDAO transactionDao, Account account, AppUser user, UserCache userCache) {
+                         TransactionDAO transactionDao, Account account, UserCache userCache,
+                         AccountService accountService) {
 
         super("Account Screen", "/account");
         this.consoleReader = consoleReader;
@@ -31,6 +34,7 @@ public class AccountScreen extends Screen{
         this.account = account;
         this.user = user;
         this.userCache = userCache;
+        this.accountService = accountService;
     }
 
     @Override
@@ -53,6 +57,13 @@ public class AccountScreen extends Screen{
                     break;
                 case"2":
                     router.navigate("/transaction");
+                    break;
+                case "3":
+                    double userBalance= transactionDao.getCheckingBalance(userCache.getCurrentUserName());
+                    System.out.println("------------------");
+                    System.out.println("Balance: $ " +  accountService.formatDoubleToCurrency(userBalance));//"Balance: $ "+
+                    System.out.println("------------------");
+                    router.navigate("/account");
                     break;
                 default:
                     System.err.println("Invalid Selection!");

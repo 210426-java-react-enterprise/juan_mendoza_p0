@@ -42,7 +42,7 @@ public class CreationAccountScreen extends Screen{
             switch (userSelection){
                 case "1":
                     transactionDao.createAccount(userCache.getCurrentUserName(),"checking", account);
-                    transactionDao.creatCheckingAccount(userCache.getCurrentUserName());
+                    transactionDao.createCheckingAccount(userCache.getCurrentUserName());
                     router.navigate("/account");
                     break;
                 default:
