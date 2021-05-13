@@ -16,7 +16,7 @@ public class UserDAO {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 
-            String sql = "insert into users.BankUsers (username,password,first_name,last_name,email,age) values (?,?,?,?,?,?)";
+            String sql = "insert into users.BankUsers (username,password,first_name,last_name,email,age,hasaccount) values (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"user_id"});
             pstmt.setString(1,newUser.getUsername());
             pstmt.setString(2,newUser.getPassword());
@@ -24,6 +24,7 @@ public class UserDAO {
             pstmt.setString(4,newUser.getLasName());
             pstmt.setString(5,newUser.getEmail());
             pstmt.setInt(6,newUser.getAge());
+            pstmt.setInt(7,0);
 
             int rowInserted = pstmt.executeUpdate();
 
@@ -42,6 +43,12 @@ public class UserDAO {
 
     }
 
+    /**
+     * Method to find user in DataBase using USERNAME and PASSWORD
+     * @param username  String - username to be checked
+     * @param password  String - password to check
+     * @return      Appuser, if one is found
+     */
     public AppUser findUserByUsernameAndPassword(String username, String password){
 
         AppUser user = null;
@@ -64,6 +71,7 @@ public class UserDAO {
                 user.setLasName(rs.getString("last_name"));
                 user.setEmail(rs.getString("email"));
                 user.setAge(rs.getInt("age"));
+                user.setAccountCreate(rs.getInt("hasaccount"));
             }
 
         }catch (SQLException e){
@@ -96,6 +104,11 @@ public class UserDAO {
         return true; //if unique username
     }
 
+    /**
+     * Method to verify if email is unique
+     * @param email String - email to be checked
+     * @return  boolean - true if it unique false otherwise
+     */
     public boolean isEmailAvailalbe(String email){
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "select * from users.BankUsers where email = ?";

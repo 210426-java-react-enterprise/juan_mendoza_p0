@@ -50,7 +50,7 @@ public class RegisterScreen extends Screen {
             age = Integer.parseInt(consoleReader.readLine());
 
 
-            AppUser newUser = new AppUser(username,password,firstName,lastName,email,age);
+            AppUser newUser = new AppUser(username,password,firstName,lastName,email,age,0);
 
             userService.register(newUser);//Exception will be thrown if invalid input,null, or taken fields.
 

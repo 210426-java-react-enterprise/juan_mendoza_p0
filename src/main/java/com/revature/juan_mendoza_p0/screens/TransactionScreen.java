@@ -65,11 +65,11 @@ public class TransactionScreen extends Screen{
                     try {
                         String withdrawAmount = consoleReader.readLine();//ask for withdraw amount
                         double dWithdrawn = Double.parseDouble(withdrawAmount);
-                        boolean verifityWithdraw = accountService.isoverDraftingOccuring(userCache.getCurrentUserName(),
+                        boolean verWithdraw = accountService.isoverDraftingOccuring(userCache.getCurrentUserName(),
                                                                                     dWithdrawn);
                         boolean negVerify = accountService.verifyInputGreaterZero(dWithdrawn);
 
-                        if(verifityWithdraw && negVerify){
+                        if(!verWithdraw && negVerify){
                             transactionDao.withdrawFromBalance(userCache.getCurrentUserName(), dWithdrawn);
                         }
                     }catch (NumberFormatException e) {

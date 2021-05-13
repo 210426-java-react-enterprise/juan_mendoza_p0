@@ -41,8 +41,14 @@ public class CreationAccountScreen extends Screen{
 
             switch (userSelection){
                 case "1":
-                    transactionDao.createAccount(userCache.getCurrentUserName(),"checking", account);
-                    transactionDao.createCheckingAccount(userCache.getCurrentUserName());
+                    if(userCache.getHasAccount() == 0) {
+                        transactionDao.updateAccountCreation(userCache.getCurrentUserName());
+                        transactionDao.createAccount(userCache.getCurrentUserName(), "checking", account);
+                        transactionDao.createCheckingAccount(userCache.getCurrentUserName());
+
+                    }else if(userCache.getHasAccount() ==1){
+                        System.out.println("You already have an account.");
+                    }
                     router.navigate("/account");
                     break;
                 default:

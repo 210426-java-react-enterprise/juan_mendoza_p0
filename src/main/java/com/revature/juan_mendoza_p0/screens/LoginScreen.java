@@ -55,6 +55,7 @@ public class LoginScreen extends Screen {
             if (validateUserInformation != null) {
                 userCache.setCurrentUserName(username);
                 userCache.setCurrentPassword(password);
+                userCache.setHasAccount(validateUserInformation.getAccountCreate());
                 router.navigate("/account");
             }
 

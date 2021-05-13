@@ -7,6 +7,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+
+/**
+ * Class for making connections, singleton design patter
+ * since we only want one connectionfactory
+ */
 public class ConnectionFactory {
 
 

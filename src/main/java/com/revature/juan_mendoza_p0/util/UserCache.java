@@ -7,6 +7,15 @@ public class UserCache {
 
     private String currentUserName;
     private String currentPassword;
+    private int hasAccount;
+
+    public int getHasAccount() {
+        return hasAccount;
+    }
+
+    public void setHasAccount(int hasAccount) {
+        this.hasAccount = hasAccount;
+    }
 
     public UserCache(){
         super();
