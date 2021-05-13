@@ -1,6 +1,10 @@
 package com.revature.juan_mendoza_p0.screens;
 
 import com.revature.juan_mendoza_p0.doas.TransactionDAO;
+import com.revature.juan_mendoza_p0.exceptions.InvalidInputException;
+import com.revature.juan_mendoza_p0.exceptions.InvalidRequestException;
+import com.revature.juan_mendoza_p0.exceptions.OverDraftInputException;
+import com.revature.juan_mendoza_p0.services.AccountService;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
 import com.revature.juan_mendoza_p0.util.UserCache;
 
@@ -12,14 +16,17 @@ public class TransactionScreen extends Screen{
     private BufferedReader consoleReader;
     private UserCache userCache;
     private TransactionDAO transactionDao;
+    private AccountService accountService;
 
     public TransactionScreen(BufferedReader consoleReader, ScreenRouter screenRouter,
-                             TransactionDAO transactionDao, UserCache userCache){
+                             TransactionDAO transactionDao, UserCache userCache,
+                             AccountService accountService){
         super("Deposit/Withdraw","/transaction");
         this.consoleReader = consoleReader;
         this.screenRouter = screenRouter;
         this.userCache = userCache;
         this.transactionDao = transactionDao;
+        this.accountService = accountService;
     }
 
 
@@ -40,13 +47,16 @@ public class TransactionScreen extends Screen{
                     try {
                         String amountDeposit = consoleReader.readLine();//ask for deposit amount
                         double dDeposit = Double.parseDouble(amountDeposit);
-                        transactionDao.depositBalance(dDeposit,userCache.getCurrentUserName());
+                        boolean verifyDeposit = accountService.verifyInputGreaterZero(dDeposit);
                         //verify deposit amount
-                            //we need accountService
-                        //try block and sql update the new balance
+                        if (verifyDeposit) {
+                            transactionDao.depositBalance(dDeposit, userCache.getCurrentUserName());
 
-                    }catch (Exception e){ // CHANGE EXCEPTION
-                        e.printStackTrace();
+                        }
+                    }catch(NumberFormatException e){
+                        System.err.println("That is not a number!");
+                    }catch(InvalidInputException e){
+                        System.err.println("Deposited amount is below zero!");
                     }
                     screenRouter.navigate("/account");
                     break;
@@ -55,13 +65,19 @@ public class TransactionScreen extends Screen{
                     try {
                         String withdrawAmount = consoleReader.readLine();//ask for withdraw amount
                         double dWithdrawn = Double.parseDouble(withdrawAmount);
-                        transactionDao.withdrawFromBalance(userCache.getCurrentUserName(),dWithdrawn);
-                        //verify deposit amount
-                        //we need accountService
-                        //try block and sql update the new balance
+                        boolean verifityWithdraw = accountService.isoverDraftingOccuring(userCache.getCurrentUserName(),
+                                                                                    dWithdrawn);
+                        boolean negVerify = accountService.verifyInputGreaterZero(dWithdrawn);
 
-                    }catch (Exception e){ // CHANGE EXCEPTION
-                        e.printStackTrace();
+                        if(verifityWithdraw && negVerify){
+                            transactionDao.withdrawFromBalance(userCache.getCurrentUserName(), dWithdrawn);
+                        }
+                    }catch (NumberFormatException e) {
+                        System.err.println("That is not a number!");
+                    }catch(InvalidInputException e){
+                            System.err.println("Deposited amount is below zero!");
+                    }catch(OverDraftInputException e){
+                        System.err.println("Overdrafting is not permitted!");
                     }
                     screenRouter.navigate("/account");
                     break;
