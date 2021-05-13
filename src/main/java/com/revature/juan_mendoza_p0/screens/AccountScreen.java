@@ -11,6 +11,8 @@ import com.revature.juan_mendoza_p0.util.UserCache;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import static com.revature.juan_mendoza_p0.Driver.getAppState;
+
 public class AccountScreen extends Screen{
 
 
@@ -45,6 +47,7 @@ public class AccountScreen extends Screen{
         System.out.println("1) Create Account");
         System.out.println("2) Withdraw/Deposit");
         System.out.println("3) View Balance");
+        System.out.println("4) Exit Application");
 
         try {
 
@@ -64,6 +67,10 @@ public class AccountScreen extends Screen{
                     System.out.println("Balance: $ " +  accountService.formatDoubleToCurrency(userBalance));//"Balance: $ "+
                     System.out.println("------------------");
                     router.navigate("/account");
+                    break;
+                case "4":
+                    System.out.println("Now leaving application.Goodbye.");
+                    getAppState().setAppRunning(false);
                     break;
                 default:
                     System.err.println("Invalid Selection!");

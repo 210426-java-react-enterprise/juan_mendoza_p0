@@ -36,14 +36,14 @@ public class AppState {
         this.account = new Account();
         this.userCache = new UserCache();
         this.userService = new UserService(userDOA);
-        this.accountService = new AccountService();
+        this.accountService = new AccountService(transactionDao);
 
 
         //chain addScreen method, cause we return instance of ScreenRouter in method
         router.addScreen(new WelcomeScreen(consoleReader,router))
                 .addScreen(new LoginScreen(consoleReader,router, userService,userCache))
                 .addScreen(new RegisterScreen(consoleReader, router,userService))
-                .addScreen(new TransactionScreen(consoleReader,router,transactionDao,userCache))
+                .addScreen(new TransactionScreen(consoleReader,router,transactionDao,userCache,accountService))
                 .addScreen(new CreationAccountScreen(consoleReader,router, transactionDao, userCache,account))
                 .addScreen(new AccountScreen(consoleReader,router,transactionDao, account,userCache,accountService));
 
