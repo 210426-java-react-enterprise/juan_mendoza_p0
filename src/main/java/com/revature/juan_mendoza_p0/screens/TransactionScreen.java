@@ -5,11 +5,11 @@ import com.revature.juan_mendoza_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class WithdrawDepositScreen extends Screen{
+public class TransactionScreen extends Screen{
     private ScreenRouter screenRouter;
     private BufferedReader consoleReader;
 
-    public WithdrawDepositScreen(BufferedReader consoleReader, ScreenRouter screenRouter){
+    public TransactionScreen(BufferedReader consoleReader, ScreenRouter screenRouter){
         super("Deposit/Withdraw","/wdScreen");
         this.consoleReader = consoleReader;
         this.screenRouter = screenRouter;
@@ -18,10 +18,10 @@ public class WithdrawDepositScreen extends Screen{
 
     @Override
     public void render() {
-        System.out.println("");
-        System.out.println("Choose which type of account you like to access:");
-        System.out.println("1)checking");
-        System.out.println("2)savings");
+        System.out.println("Checking Account");
+        System.out.println("Make a selection from choices below:");
+        System.out.println("1) deposit");
+        System.out.println("2) withdraw");
 
         try{
             System.out.print("> ");
@@ -29,10 +29,19 @@ public class WithdrawDepositScreen extends Screen{
 
             switch(selectionUser){
                 case "1":
-                    screenRouter.navigate("/checking");
+                    System.out.println("$ ");
+                    try {
+                        String amountDeposit = consoleReader.readLine();
+                        double dDeposit = Double.parseDouble(amountDeposit);
+                        //ask for deposit amount
+                        //verify deposit amount
+                        //try block and sql update the new balance
+
+                    }catch (Exception e){ // CHANGE EXCEPTION
+                        e.printStackTrace();
+                    }
                     break;
                 case "2":
-                    screenRouter.navigate("/savings");
                     break;
                 default:
                     System.err.println("Invalid Selection");

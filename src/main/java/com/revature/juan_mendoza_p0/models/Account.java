@@ -44,7 +44,10 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public void withdrawMoney(double lessMoney){ this.balance += lessMoney; }
+    public void withdrawMoney(double lessMoney){
+
+        this.balance -= lessMoney;
+    }
 
     public void depositMoney(double moreMoney){ balance += moreMoney; }
 

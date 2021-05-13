@@ -5,6 +5,7 @@ import com.revature.juan_mendoza_p0.doas.TransactionDAO;
 import com.revature.juan_mendoza_p0.models.Account;
 import com.revature.juan_mendoza_p0.models.AppUser;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
+import com.revature.juan_mendoza_p0.util.UserCache;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +18,11 @@ public class AccountScreen extends Screen{
     private TransactionDAO transactionDao;
     private Account account;
     private AppUser user;
+    private UserCache userCache;
 
 
     public AccountScreen(BufferedReader consoleReader, ScreenRouter router,
-                         TransactionDAO transactionDao, Account account, AppUser user) {
+                         TransactionDAO transactionDao, Account account, AppUser user, UserCache userCache) {
 
         super("Account Screen", "/account");
         this.consoleReader = consoleReader;
@@ -28,6 +30,7 @@ public class AccountScreen extends Screen{
         this.transactionDao = transactionDao;
         this.account = account;
         this.user = user;
+        this.userCache = userCache;
     }
 
     @Override
@@ -37,6 +40,7 @@ public class AccountScreen extends Screen{
         System.out.println("++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("1) Create Account");
         System.out.println("2) Withdraw/Deposit");
+        System.out.println("3) View Balance");
 
         try {
 
@@ -45,29 +49,10 @@ public class AccountScreen extends Screen{
 
             switch (userSelection){
                 case "1":
-                    System.out.println("Which type of account would you like to create?");
-                    System.out.println("1) checkings account");
-                    //System.out.println("2) savings account");
-                    try{
-                        System.out.print("> ");
-                        String selection = consoleReader.readLine();
-
-                        switch (selection){
-                            case "1":
-                                transactionDao.createAccount(user,"checking", account);
-                            default:
-                                System.err.println("Invalid Selection");
-                        }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-                    //transactionDao.createAccount();
-                    //router.navigate("/savings");
+                    router.navigate("/creationAccount");
                     break;
-
-                case "2":
-                    router.navigate("/wdScreen");
+                case"2":
+                    router.navigate("/transaction");
                     break;
                 default:
                     System.err.println("Invalid Selection!");

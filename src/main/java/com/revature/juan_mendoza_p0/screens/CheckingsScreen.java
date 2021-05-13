@@ -19,6 +19,7 @@ public class CheckingsScreen extends Screen {
     @Override
     public void render() {
         System.out.println("Now in your Checkings Account, please choose an option:");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("1) Withdraw");
         System.out.println("2) Deposit");
         System.out.println("3) View Balance");
