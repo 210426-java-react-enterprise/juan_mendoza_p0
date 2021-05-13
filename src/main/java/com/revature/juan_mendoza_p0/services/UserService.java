@@ -12,6 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * Class to verify user input
+ */
 public class UserService {
 
     //dependency injection, now dependent on the class userDAO
@@ -34,8 +38,6 @@ public class UserService {
      * @throws InvalidRequestException
      * @throws ResourcePersistenceException
      */
-
-
     public void register(AppUser newUser) throws InvalidRequestException, ResourcePersistenceException {
         if(!isUserValid(newUser)){
             throw new InvalidRequestException("Invalid new user data provided!");

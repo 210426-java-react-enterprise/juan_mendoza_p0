@@ -12,6 +12,10 @@ import com.revature.juan_mendoza_p0.services.UserService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+
+/**
+ * class to create the instance of entire app
+ */
 public class AppState {
 
     private BufferedReader consoleReader;

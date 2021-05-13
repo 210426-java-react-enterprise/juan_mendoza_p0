@@ -12,6 +12,12 @@ import java.sql.SQLException;
 public class TransactionDAO {
 
 
+    /**
+     * Method to create account
+     * @param username
+     * @param accountType
+     * @param acc
+     */
     public void createAccount(String username, String accountType, Account acc){
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
@@ -41,6 +47,10 @@ public class TransactionDAO {
         System.out.println(accountType + " has been created.");
     }
 
+    /**
+     * Create Checking Account in the database for the user
+     * @param username
+     */
     public void createCheckingAccount(String username){
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "insert into users.checking(balance,username) values(?,?)";
@@ -57,6 +67,32 @@ public class TransactionDAO {
         }
     }
 
+    /**
+     * Method to update user if they have created an account
+     *
+     * @param username
+     */
+    public void updateAccountCreation(String username){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "update users.bankusers set hasaccount = (?) where username = (?)";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,1);
+            pstmt.setString(2,username);
+
+            int rowsInserted = pstmt.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    /**
+     * Method to deposit the amount desire to user in the database
+     * @param amount    amount to be deposited
+     * @param username  username to look for in the database
+     */
     public void depositBalance(double amount,String username){
         double newBalance = amount +getCheckingBalance(username);
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
@@ -74,6 +110,11 @@ public class TransactionDAO {
         System.out.println("Funds have been deposited!");
     }
 
+    /**
+     * Method to get balance from the database using username
+     * @param username  String - username to access the database
+     * @return  double the balance from the user
+     */
     public double getCheckingBalance(String username){
         double sqlBalance=0.0;
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
@@ -94,7 +135,12 @@ public class TransactionDAO {
         return sqlBalance;
     }
 
-
+    /**
+     * Method to withdraw funds from the DataBase using username
+     * @param username  String - username to check data base and access balance
+     * @param amount    double - desired amount to be taken out of balance
+     * @return      double - the new balance
+     */
     public double withdrawFromBalance(String username, double amount){
         double newBalance = getCheckingBalance(username) - amount;
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){

@@ -13,20 +13,30 @@ public class AppUser {
     private String lasName;
     private String email;
     private int age;
+    private int accountCreate ;
+
+    public int getAccountCreate() {
+        return accountCreate;
+    }
+
+    public void setAccountCreate(int accountCreate) {
+        this.accountCreate = accountCreate;
+    }
 
     //constructor
     public AppUser(String username, String password, String firstName,
-                   String lasName, String email, int age) {
+                   String lasName, String email, int age,int accountCreate) {
         this.username = username;
         this.password = password;
         this.firstName= firstName;
         this.lasName = lasName;
         this.email = email;
         this.age = age;
+        this.accountCreate = accountCreate;
     }
 
-    public AppUser(int id, String username, String password, String firstName,String lasName, String email, int age) {
-        this(username, password, firstName, lasName, email, age);
+    public AppUser(int id, String username, String password, String firstName,String lasName, String email, int age,int accountCreate) {
+        this(username, password, firstName, lasName, email, age,accountCreate);
         this.id = id;
     }
 
@@ -107,4 +117,6 @@ public class AppUser {
         sb.append('}');
         return sb.toString();
     }
+
+
 }

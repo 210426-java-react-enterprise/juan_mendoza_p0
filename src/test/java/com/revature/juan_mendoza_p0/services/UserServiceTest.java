@@ -40,7 +40,7 @@ public class UserServiceTest {
 
 
         //Act
-        sut.register(new AppUser(1,"jj","pass","fn","ln","email",33));
+        sut.register(new AppUser(1,"jj","pass","fn","ln","email",33,1));
 
         //Assert
         verify(mockDAO,times(1)).isUserNameAvailable(anyString());
@@ -55,7 +55,7 @@ public class UserServiceTest {
 
         //Act
         try{
-            sut.register(new AppUser(1,"jj","password","fn","ln","email",33));
+            sut.register(new AppUser(1,"jj","password","fn","ln","email",33,1));
         }catch (Exception e){
             assertTrue(e instanceof ResourcePersistenceException);
         }finally {
@@ -72,7 +72,7 @@ public class UserServiceTest {
 
         //Act
         try{
-            sut.register(new AppUser(1,"jj","password","fn","ln","email",33));
+            sut.register(new AppUser(1,"jj","password","fn","ln","email",33,1));
         }catch (Exception e){
             assertTrue(e instanceof ResourcePersistenceException);
         }finally{
