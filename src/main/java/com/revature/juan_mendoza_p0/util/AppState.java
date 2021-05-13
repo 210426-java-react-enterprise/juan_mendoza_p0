@@ -40,10 +40,9 @@ public class AppState {
         router.addScreen(new WelcomeScreen(consoleReader,router))
                 .addScreen(new LoginScreen(consoleReader,router, userService,userCache))
                 .addScreen(new RegisterScreen(consoleReader, router,userService))
-                .addScreen(new TransactionScreen(consoleReader,router))
+                .addScreen(new TransactionScreen(consoleReader,router,transactionDao,userCache))
                 .addScreen(new CreationAccountScreen(consoleReader,router, transactionDao, userCache,account))
-                .addScreen(new AccountScreen(consoleReader,router,transactionDao, account, user,userCache))
-                .addScreen(new CheckingsScreen(consoleReader,router));
+                .addScreen(new AccountScreen(consoleReader,router,transactionDao, account, user,userCache));
 
         System.out.println("System is initialized!");
     }

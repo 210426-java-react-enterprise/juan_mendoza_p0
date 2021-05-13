@@ -41,7 +41,7 @@ public class TransactionDAO {
         System.out.println(accountType + " has been created.");
     }
 
-    public void creatCheckingAccount(String username){
+    public void createCheckingAccount(String username){
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "insert into users.checking(balance,username) values(?,?)";
 
@@ -55,6 +55,22 @@ public class TransactionDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void updateBalance(double amount,String username){
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "update users.checking set balance =(?) where username=(?)";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setDouble(1,amount);
+            pstmt.setString(2,username);
+            pstmt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        System.out.println("Funds have been deposited!");
     }
 
 

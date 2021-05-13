@@ -1,6 +1,8 @@
 package com.revature.juan_mendoza_p0.screens;
 
+import com.revature.juan_mendoza_p0.doas.TransactionDAO;
 import com.revature.juan_mendoza_p0.util.ScreenRouter;
+import com.revature.juan_mendoza_p0.util.UserCache;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,11 +10,16 @@ import java.io.IOException;
 public class TransactionScreen extends Screen{
     private ScreenRouter screenRouter;
     private BufferedReader consoleReader;
+    private UserCache userCache;
+    private TransactionDAO transactionDao;
 
-    public TransactionScreen(BufferedReader consoleReader, ScreenRouter screenRouter){
-        super("Deposit/Withdraw","/wdScreen");
+    public TransactionScreen(BufferedReader consoleReader, ScreenRouter screenRouter,
+                             TransactionDAO transactionDao, UserCache userCache){
+        super("Deposit/Withdraw","/transaction");
         this.consoleReader = consoleReader;
         this.screenRouter = screenRouter;
+        this.userCache = userCache;
+        this.transactionDao = transactionDao;
     }
 
 
@@ -31,10 +38,11 @@ public class TransactionScreen extends Screen{
                 case "1":
                     System.out.println("$ ");
                     try {
-                        String amountDeposit = consoleReader.readLine();
+                        String amountDeposit = consoleReader.readLine();//ask for deposit amount
                         double dDeposit = Double.parseDouble(amountDeposit);
-                        //ask for deposit amount
+                        transactionDao.updateBalance(dDeposit,userCache.getCurrentUserName());
                         //verify deposit amount
+                            //we need accountService
                         //try block and sql update the new balance
 
                     }catch (Exception e){ // CHANGE EXCEPTION
