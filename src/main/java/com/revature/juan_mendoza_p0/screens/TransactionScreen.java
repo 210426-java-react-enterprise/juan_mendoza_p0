@@ -54,7 +54,8 @@ public class TransactionScreen extends Screen{
                     System.out.print("$ ");
                     try {
                         String withdrawAmount = consoleReader.readLine();//ask for withdraw amount
-                        double dDeposit = Double.parseDouble(withdrawAmount);
+                        double dWithdrawn = Double.parseDouble(withdrawAmount);
+                        transactionDao.withdrawFromBalance(userCache.getCurrentUserName(),dWithdrawn);
                         //verify deposit amount
                         //we need accountService
                         //try block and sql update the new balance
@@ -62,7 +63,7 @@ public class TransactionScreen extends Screen{
                     }catch (Exception e){ // CHANGE EXCEPTION
                         e.printStackTrace();
                     }
-
+                    screenRouter.navigate("/account");
                     break;
                 default:
                     System.err.println("Invalid Selection");

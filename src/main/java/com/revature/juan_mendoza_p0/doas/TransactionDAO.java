@@ -95,6 +95,24 @@ public class TransactionDAO {
     }
 
 
+    public double withdrawFromBalance(String username, double amount){
+        double newBalance = getCheckingBalance(username) - amount;
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "update users.checking set balance=(?) where username=(?)";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setDouble(1, newBalance);
+            pstmt.setString(2,username);
+            pstmt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        System.out.println("$ " + amount+ " has been withdrawn.");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++");
+
+        return newBalance;
+    }
 
 
 }
